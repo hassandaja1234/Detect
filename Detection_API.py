@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify
 import sys
 import os
-os.chdir('Detection_and_recognition')
-
 from detection_recognition_Methods import get_students_enc_ids,check_person_images,attendance_by_images
 from flask_cors import CORS
 from PIL import Image
@@ -46,4 +44,5 @@ def get_attendance():
         error_message = f"An error occurred: {str(e)}"
         return jsonify({"error": error_message}), 400
 if __name__ == '__main__':
-    app.run(debug=False,port=9999)
+    port = int(os.getenv("PORT", "5555"))  # Use Render's port or default to 5555
+    app.run(debug=False, port=port, host="0.0.0.0")
